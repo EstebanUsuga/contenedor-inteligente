@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/jfif" href="/img/Reusoil.jfif">
+    <title>Login | Reus-Oil</title>
+</head>
+ <script src="/js/script.js"></script>
+
+<body>
+<div class="container" id="container">
+    <div class="form-container sign-up">
+        <!-- onsubmit="return true" -->
+        <form th:action="@{/registrar}" th:object="${registroDTO}" method="post" id="register-form" onsubmit="return validarRegistro()">
+            <h1>Regístrate</h1>
+            <!--  <div class="social-icons">
+                 <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                 <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+             </div>
+             <span>o usa tu correo para registrarte</span> -->
+            <input id="idRegistro" th:field="*{id}" type="text" placeholder="Documento de identidad" required>
+            <small class="error-message" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
+            <input id="usuarioRegistro" th:field="*{nombre}" type="text" placeholder="Nombre completo" required>
+            <small class="error-message" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+            <input id="nombreRegistro" th:field="*{usuario}" type="text" placeholder="Usuario" required>
+            <small class="error-message" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></small>
+             <input id="correoRegistro" th:field="*{correo}" type="email" placeholder="Correo" required>
+            <small class="error-message" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
+             <input id="tlfRegistro" th:field="*{telefono}" type="text" placeholder="Teléfono" required>
+            <small class="error-message" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
+             <input id="claveRegistro" th:field="*{clave}" type="password" placeholder="Contraseña" required>
+            <small class="error-message" th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}"></small>
+            <div class="error-message" th:if="${error != null}" th:text="${error}" ></div>
+            <button type="submit">Registrarse</button>
+         </form>
+     </div>
+     <div class="form-container sign-in">
+         <!-- onsubmit="return validar()" | onsubmit="return validar('#msgError')"-->
+        <form th:action="@{/login}" th:object="${usuarioLogin}" method="post" id="login-form" onsubmit="return validarLogin()">
+            <h1>Ingreso</h1>
+            <div class="social-icons">
+                <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+            </div>
+            <span>o usa tu email y contraseña</span>
+            <input type="text" id="usuarioLogin" name="usuarioLogin" th:field="*{usuario}" placeholder="Usuario">
+            <input type="password" id="claveLogin" name="claveLogin" th:field="*{clave}" placeholder="Contraseña">
+            <div class="alert alert-danger form-text" th:if="${errorLogin != null}" th:text="${errorLogin}" ></div>
+            <a th:href="@{/usuario/usuarioRecuperarContrasena}">¿Olvidó su contraseña?</a>
+            <!-- onclick="return validar()" -->
+            <button type="submit">Ingresar</button>
+        </form>
+    </div>
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+                <div class="image-container">
+                    <img src="/img/Reusoil.jfif" alt="Reus-Oil Logo">
+                </div>
+                <h1>¡Bienvenido!</h1>
+
+                <button class="hidden" id="login">Ingresar</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <div class="image-container">
+                    <img src="/img/Reusoil.jfif" alt="Reus-Oil Logo">
+                </div>
+                <h1>¡Hola!</h1>
+                <p>Regístrate con tus datos</p>
+                <button class="hidden" id="register" onsubmit="return validar()">Registrarse</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

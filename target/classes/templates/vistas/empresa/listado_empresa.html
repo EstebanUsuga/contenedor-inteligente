@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+    <title>Listado de Empresas</title>
+    <link rel="stylesheet" th:href="@{/css/lists.css}">
+<body>
+<div th:insert="plantillas/base :: base-header"></div>
+
+<div class="container">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3 th:text="${mensaje}">Listado de Empresas</h3>
+        </div>
+
+        <div class="container mt-2">
+            <a class="btn btn-sm btn-success" th:href="@{/empresa/guardar-empresa}">Agregar Empresa</a>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-striped table-sm table-hover table-bordered"
+                   th:if="${not #lists.isEmpty(empresas)}">
+                <thead>
+                <tr>
+                    <th class="text-center">Nit</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Dirección</th>
+                    <th class="text-center">Ciudad</th>
+                    <th class="text-center">Tipo de Empresa</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="empresa : ${empresas}">
+                    <td th:text="${empresa.id}"></td>
+                    <td th:text="${empresa.nombre}"></td>
+                    <td th:text="${empresa.direccion}"></td>
+                    <td th:text="${empresa.ciudad.nombre}"></td>
+                    <td th:text="${empresa.tipoEmpresa.descripcion}"></td>
+                    <td>
+                        <a class="btn btn-sm btn-info" th:href="@{/empresa/editar/} + ${empresa.id}">Editar<i class="bi-pencil-fill" style="color: cornflowerblue"></i></a>
+                        <a class="btn btn-sm btn-danger" th:href="@{/empresa/eliminar/} + ${empresa.id}" onclick="return confirm('¿Eliminar registro?')">Eliminar<i class="bi-eraser-fill" style="color: indianred"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning" th:if="${#lists.isEmpty(empresas)}">
+                No hay registros de empresas para mostrar.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="plantillas/base :: base-footer"></div>
+</body>
+</html>

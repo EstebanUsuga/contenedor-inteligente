@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+<title th:text="${mensaje}">Listado de Resultados</title>
+<link rel="stylesheet" th:href="@{/css/lists.css}">
+<body>
+<div th:insert="plantillas/base :: base-header"></div>
+
+<div class="container">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3 th:text="${mensaje}">Listado de Resultados</h3>
+        </div>
+
+     <!--   <div class="container mt-2">
+            <a class="btn btn-sm btn-success" th:href="@{/resultado/guardar}">Agregar Resultado</a>
+        </div>  -->
+
+        <div class="card-body">
+            <table class="table table-striped table-sm table-hover table-bordered"
+                   th:if="${not #lists.isEmpty(resultados)}">
+                <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Fecha de Medición</th>
+                    <th class="text-center">Temperatura °C</th>
+                    <th class="text-center">Porcentaje de llenado (%)</th>
+                    <th class="text-center">Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="resultado : ${resultados}">
+                    <td th:text="${resultado.id}"></td>
+                    <td th:text="${resultado.fechaMedicion}"></td>
+                    <td th:text="${resultado.resultadoTemperatura}"></td>
+                    <td th:text="${resultado.nivelLlenado}"></td>
+                    <td th:text="${resultado.estado} ? 'Activo' : 'Inactivo'"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning" th:if="${#lists.isEmpty(resultados)}">
+                No hay registros de resultados para mostrar.
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="plantillas/base :: base-footer"></div>
+</body>
+</html>

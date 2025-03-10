@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+<title>Formulario de Recolección</title>
+<link rel="stylesheet" th:href="@{/css/forms.css}">
+</head>
+<body>
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4" >Gestión Recolección</h1>
+
+    <form th:action="@{/recoleccion/guardar}" th:object="${recoleccion}" method="post">
+        <!-- Campo escondido de ID -->
+        <input type="hidden" th:field="*{id}"/>
+
+        <!-- Campo de fecha de recolección -->
+        <div class="form-group">
+            <label for="fechaRecoleccion">Fecha de Recolección:</label>
+            <input type="date" class="form-control" id="fechaRecoleccion" th:field="*{fechaRecoleccion}" required>
+            <div th:if="${#fields.hasErrors('fechaRecoleccion')}" th:errors="*{fechaRecoleccion}" class="error-message"></div>
+        </div>
+
+        <!-- Campo de volumen recogido -->
+        <div class="form-group">
+            <label for="volumenRecogido">Volumen Recogido (en litros):</label>
+            <input type="number" class="form-control" id="volumenRecogido" th:field="*{volumenRecogido}" min="0" step="0.1" required>
+            <div th:if="${#fields.hasErrors('volumenRecogido')}" th:errors="*{volumenRecogido}" class="error-message"></div>
+        </div>
+
+        <!-- Selección de empresa -->
+        <div class="form-group">
+            <label for="empresa">Empresa:</label>
+            <select class="form-control" id="empresa" th:field="*{empresa}" required>
+                <option value="" disabled selected>Seleccione una empresa</option>
+                <option th:each="empresa : ${empresas}" th:value="${empresa.id}" th:text="${empresa.nombre}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('empresa')}" th:errors="*{empresa}" class="error-message"></div>
+        </div>
+
+        <!-- Estado de la recolección -->
+        <div class="mb-3 form-check">
+            <input id="estado" type="checkbox" th:field="*{estado}" class="form-check-input">
+            <label for="estado" class="form-check-label">Activo</label>
+        </div>
+
+        <!-- Botones de acción -->
+        <button type="submit" class="btn btn-sm btn-success" >Guardar</button>
+        <a th:href="@{/recoleccion/listado-recolecciones}" class="btn btn-sm btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div th:insert="plantillas/base :: base-footer"></div>
+
+</body>
+</html>

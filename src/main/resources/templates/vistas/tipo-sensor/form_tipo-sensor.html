@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+<title>Gestión de Tipos de Sensor | Reus-Oil</title>
+<link rel="stylesheet" th:href="@{/css/forms.css}">
+<script src="/js/script.js" defer></script> <!-- Incluye tu archivo JS -->
+
+<body>
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<main class="container my-5" th:fragment="base-content">
+    <div class="form-container">
+        <form th:action="@{/tipo-sensor/guardar}" th:object="${tipoSensor}" method="post" onsubmit="validarFormulario(event, 'descripcion', 'El campo \"Descripción del Sensor\" no puede estar vacío.');">
+        <h1 class="text-center">Registrar Tipo de Sensor</h1>
+
+        <input type="hidden" name="id" th:value="*{id}"/>
+
+        <div class="mb-4">
+            <label for="descripcion" class="form-label">Descripción del Sensor</label>
+            <input id="descripcion" type="text" th:field="*{descripcion}" placeholder="Descripción del Sensor" required class="form-control">
+            <div th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}" class="error-message"></div>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input id="estado" type="checkbox" th:field="*{estado}" th:checked="*{estado}" class="form-check-input">
+            <label for="estado" class="form-check-label">Activo</label>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block">Guardar</button>
+        </form>
+    </div>
+</main>
+<footer th:replace="~{plantillas/base :: base-footer}"></footer>
+
+</body>
+</html>

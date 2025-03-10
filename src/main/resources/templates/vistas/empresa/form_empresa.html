@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<head th:replace="~{plantillas/base :: base-head}"></head>
+    <title >Gestión de Empresas | Reus-Oil</title>
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
+
+<body>
+<script src="/js/script.js"></script>
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<main class="container my-5" th:fragment="base-content">
+    <div class="form-container">
+        <!-- <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div> -->
+        <form th:action="@{/empresa/guardar}" th:object="${empresa}" method="post" onsubmit="return validarFormulario('empresa-form', [
+                  { id: 'nombre', msgId: 'msgErrorNombre', tipo: 'text', errorVacio: 'Nombre no puede estar vacío' },
+                  { id: 'direccion', msgId: 'msgErrorDireccion', tipo: 'text', errorVacio: 'Dirección no puede estar vacía' },
+                  { id: 'telefono', msgId: 'msgErrorTelefono', tipo: 'text', errorVacio: 'Teléfono no puede estar vacío' },
+                  { id: 'correo', msgId: 'msgErrorCorreo', tipo: 'correo', errorVacio: 'Correo electrónico no puede estar vacío', errorFormato: 'Correo inválido' },
+                  { id: 'ciudad', msgId: 'msgErrorCiudad', tipo: 'select', errorVacio: 'Selecciona una ciudad' },
+                  { id: 'tipoEmpresa', msgId: 'msgErrorTipoEmpresa', tipo: 'select', errorVacio: 'Selecciona un tipo de empresa' }
+                ])">
+
+            <h1>Registrar Empresa</h1>
+
+            <!-- <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div> -->
+
+             <label for="id">Nit de la empresa</label>
+             <input type="text" th:field="*{id}" placeholder="Nit" required class="form-control">
+             <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="error-message"></div>
+
+           <label for="nombre">Nombre</label>
+           <input id="nombre" type="text" th:field="*{nombre}" placeholder="Nombre de la Empresa" required class="form-control">
+            <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error-message"></div>
+
+           <label for="direccion">Dirección</label>
+           <input type="text" th:field="*{direccion}" placeholder="Dirección" required class="form-control">
+            <div th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" class="error-message" id="msgErrorDireccion"></div>
+
+
+            <label for="telefono">Teléfono</label>
+           <input type="text" th:field="*{telefono}" placeholder="Teléfono" required class="form-control">
+            <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="error-message" id="msgErrorTelefono"></div>
+
+            <label for="correo">Correo electrónico</label>
+            <input type="email" th:field="*{correo}" placeholder="Correo electrónico" required class="form-control">
+            <div th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}" class="error-message"></div>
+
+            <label for="ciudad">Ciudad</label>
+           <select id="ciudad" name="ciudad" th:field="*{ciudad}" class="form-control">
+               <option th:each="ciudad : ${ciudades}" th:value="${ciudad.id}" th:text="${ciudad.nombre}">Selecciona una ciudad</option>
+           </select>
+
+           <label for="tipoEmpresa">Tipo de Empresa</label>
+           <select id="tipoEmpresa" name="tipoEmpresa" class="form-control" th:field="*{tipoEmpresa}">
+               <option value="" disabled>Seleccione una empresa</option>
+               <option th:each="tipoEmpresa : ${tiposEmpresas}"
+                       th:value="${tipoEmpresa.id}"
+                       th:text="${tipoEmpresa.descripcion}">
+               </option>
+           </select>
+
+           <div class="mb-3 form-check">
+               <input id="estado" type="checkbox" th:field="*{estado}" th:checked="*{estado}" class="form-check-input">
+               <label for="estado" class="form-check-label">Activo</label>
+           </div>
+
+           <button type="submit" class="btn btn-primary">Guardar</button>
+       </form>
+   </div>
+</main>
+
+<footer th:replace="~{plantillas/base :: base-footer}"></footer>
+
+</body>
+</html>

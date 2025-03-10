@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- Se define el idioma y se indica que se usará Thymeleaf para plantillas -->
+<head th:replace="~{plantillas/base :: base-head}">
+    <!-- La cabecera se reemplaza por el contenido de la plantilla base (base-head) -->
+</head>
+<!-- El título de la página se configura dinámicamente según el modo de edición o registro -->
+<title th:text="${modoEdicion ? 'Editar' : 'Registrar'} + ' Contenedor'">
+    Gestión de Contenedores | Reus-Oil
+</title>
+<!-- Se incluye el archivo de estilos específico para formularios -->
+<link rel="stylesheet" th:href="@{/css/forms.css}">
+<body>
+<!-- Se inserta el encabezado definido en la plantilla base (base-header) -->
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<!-- Área principal de la página, donde se mostrará el contenido específico -->
+<main class="container my-5" th:fragment="base-content">
+    <div class="form-container">
+        <!-- Formulario para crear o editar un contenedor -->
+        <form th:action="@{/contenedor/guardar}" th:object="${contenedor}" method="post">
+            <!-- El título del formulario se muestra dinámicamente -->
+            <h1 th:text="${modoEdicion ? 'Editar' : 'Registrar'} + ' Contenedor'">Registrar Contenedor</h1>
+
+            <!-- Campo oculto para el ID del contenedor (útil para edición) -->
+            <input type="hidden" th:field="*{id}" />
+
+            <!-- Campo para ingresar la capacidad máxima del contenedor -->
+            <div class="mb-3">
+                <label for="capacidad" class="form-label">Capacidad Máxima (litros)</label>
+                <input type="number" th:field="*{capacidad}" min="0" step="1"
+                id="capacidad" class="form-control" placeholder="Capacidad máxima en litros" required>
+            </div>
+
+            <!-- Campo para ingresar la ubicación del contenedor -->
+            <div class="mb-3">
+                <label for="ubicacion" class="form-label">Ubicación</label>
+                <input type="text" th:field="*{ubicacion}" id="ubicacion"
+                       class="form-control" placeholder="Ubicación del contenedor" required>
+                <!-- Muestra un mensaje de error si hay problemas con el campo 'ubicacion' -->
+                <div th:if="${#fields.hasErrors('ubicacion')}" th:errors="*{ubicacion}" class="error-message"></div>
+            </div>
+
+            <!-- Campo para seleccionar la fecha de instalación del contenedor -->
+            <div class="mb-3">
+                <label for="fechaInst" class="form-label">Fecha de Instalación</label>
+                <input type="date" th:field="*{fechaInst}" id="fechaInst" class="form-control" required>
+            </div>
+
+            <!-- Menú desplegable para seleccionar la empresa asociada al contenedor -->
+            <div class="mb-3">
+                <label class="form-label">Empresa</label>
+                <select th:field="*{empresa}" class="form_select">
+                    <!-- Se recorren las empresas disponibles y se muestran sus nombres -->
+                    <option th:each="empresa : ${empresas}"
+                            th:value="${empresa.id}"
+                            th:text="${empresa.nombre}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- Casilla de verificación para indicar si el contenedor está activo -->
+            <div class="mb-3 form-check">
+                <input id="estado" type="checkbox" th:field="*{estado}" th:checked="*{estado}" class="form-check-input">
+                <label for="estado" class="form-check-label">Activo</label>
+            </div>
+
+            <!-- Botón para enviar el formulario -->
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+</main>
+
+<!-- Se inserta el pie de página definido en la plantilla base (base-footer) -->
+<div th:insert="plantillas/base :: base-footer"></div>
+</body>
+</html>
+
+

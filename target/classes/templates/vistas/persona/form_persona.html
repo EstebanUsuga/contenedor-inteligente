@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+<!-- th:text="${modoEdicion ? 'Editar' : 'Registrar'} + ' Persona'" -->
+<title >Gestión de Personas | Reus-Oil</title>
+<link rel="stylesheet" th:href="@{/css/forms.css}">
+<body>
+
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<main class="container my-5" th:fragment="base-content">
+    <div class="form-container">
+        <!--  <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>-->
+          <form th:action="@{/persona/guardar}" th:object="${persona}" method="post">
+
+              <!-- th:text="${modoEdicion ? 'Editar' : 'Registrar'} + ' Persona'" -->
+            <h1 >Gestión Persona</h1>
+
+              <!-- <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div> -->
+
+               <label for="id">ID de usuario</label>
+               <input type="text" th:field="*{id}" placeholder="id" required class="form-control" id="id">
+               <div th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="error-message"></div>
+
+               <label for="nombre">Nombre</label>
+               <input id="nombre" type="text" th:field="*{nombre}" placeholder="Nombre de la Persona" required class="form-control">
+               <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error-message"></div>
+
+               <label for="correo">Correo Electrónico</label>
+               <input id="correo" type="email" th:field="*{correo}" placeholder="Correo Electrónico" required class="form-control">
+               <div th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}" class="error-message"></div>
+
+               <label for="telefono">Teléfono</label>
+               <input id="telefono" type="text" th:field="*{telefono}" placeholder="Teléfono" required class="form-control">
+               <div th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="error-message"></div>
+
+               <label for="empresa">Empresa</label>
+               <select id="empresa" th:field="*{empresa}" class="form-control">
+                   <option th:each="empresa : ${empresas}" th:value="${empresa.id}" th:text="${empresa.nombre}">Selecciona una empresa</option>
+               </select>
+               <div th:if="${#fields.hasErrors('empresa')}" th:errors="*{empresa}" class="error-message"></div>
+
+               <div class="mb-3 form-check">
+                   <input id="estado" type="checkbox" th:field="*{estado}" class="form-check-input">
+                   <label for="estado" class="form-check-label">Activo</label>
+               </div>
+
+               <button type="submit" class="btn btn-primary">Guardar</button>
+           </form>
+       </div>
+   </main>
+
+   <footer th:replace="~{plantillas/base :: base-footer}"></footer>
+
+   </body>
+   </html>

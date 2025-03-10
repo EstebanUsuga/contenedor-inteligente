@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+<title>Selección de Empresa</title>
+<link rel="stylesheet" th:href="@{/css/forms.css}">
+<body>
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">¡Bienvenido!</h1>
+    <p class="text-center">Seleccione la empresa en la que trabaja o registre una nueva empresa.</p>
+
+    <form th:action="@{/empresa/relacionar-empresa}" method="post">
+        <!-- Lista desplegable de empresas -->
+        <div class="form-group">
+            <label for="empresa">Empresa:</label>
+            <select class="form-control" id="empresa" name="empresaId" required>
+                <option value="" disabled selected>Seleccione una empresa</option>
+                <option th:each="empresa : ${empresas}" th:value="${empresa.id}" th:text="${empresa.nombre}"></option>
+            </select>
+        </div>
+
+        <!-- Botón para seleccionar la empresa -->
+        <div class="mt-4 text-center">
+            <a th:href="@{/empresa/relacionar-empresa}" class="btn btn-primary">Seleccionar Empresa</a>
+        </div>
+    </form>
+
+    <!-- Botón para registrar una nueva empresa -->
+    <div class="mt-4 text-center">
+        <a th:href="@{/empresa/guardar-empresa}" class="btn btn-success">Registrar Nueva Empresa</a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div th:insert="plantillas/base :: base-footer"></div>
+
+<div th:insert="plantillas/base :: base-footer"></div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+<title>Registro de Usuario</title>
+<link rel="stylesheet" th:href="@{/css/forms.css}">
+<body>
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Registro de Usuario</h1>
+
+    <form th:action="@{/usuario/guardar}" th:object="${registroDTO}" method="post" id="register-form" onsubmit="return validarRegistro()">
+        <!-- Campo de Documento de Identidad -->
+
+        <div class="form-group">
+            <label for="idRegistro">Documento de Identidad:</label>
+            <input id="idRegistro" type="text" class="form-control" th:field="*{id}" placeholder="Documento de identidad" required>
+            <small class="form-text error-message" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
+        </div>
+
+        <!-- Campo de Nombre Completo -->
+        <div class="form-group">
+            <label for="nombreCompleto">Nombre Completo:</label>
+            <input id="nombreCompleto" type="text" class="form-control" th:field="*{nombre}" placeholder="Nombre completo" required>
+            <small class="form-text error-message" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+        </div>
+
+        <!-- Campo de Nombre de Usuario -->
+        <div class="form-group">
+            <label for="usuarioRegistro">Nombre de Usuario:</label>
+            <input id="usuarioRegistro" type="text" class="form-control" th:field="*{usuario}" placeholder="Usuario" required>
+            <small class="form-text error-message" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></small>
+        </div>
+
+        <!-- Campo de Correo -->
+        <div class="form-group">
+            <label for="correoRegistro">Correo:</label>
+            <input id="correoRegistro" type="email" class="form-control" th:field="*{correo}" placeholder="Correo" required>
+            <small class="form-text error-message" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
+        </div>
+
+        <!-- Campo de Teléfono -->
+        <div class="form-group">
+            <label for="tlfRegistro">Teléfono:</label>
+            <input id="tlfRegistro" type="text" class="form-control" th:field="*{telefono}" placeholder="Teléfono" required>
+            <small class="form-text error-message" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
+        </div>
+
+        <!-- Campo de Contraseña -->
+        <div class="form-group">
+            <label for="claveRegistro">Contraseña:</label>
+            <input id="claveRegistro" type="password" class="form-control" th:field="*{clave}" placeholder="Contraseña" required>
+            <small class="form-text error-message" th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}"></small>
+        </div>
+
+
+        <!-- Estado del Usuario -->
+
+        <!-- Botones de Acción -->
+        <button type="submit" class="btn btn-sm btn-success">Guardar</button>
+        <a th:href="@{/usuario/listado-usuarios}" class="btn btn-sm btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div th:insert="plantillas/base :: base-footer"></div>
+
+</body>
+</html>

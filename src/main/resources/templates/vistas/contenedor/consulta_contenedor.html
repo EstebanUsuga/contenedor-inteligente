@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="~{plantillas/base :: base-head}"></head>
+    <title>Consulta Contenedor</title>
+    <style>
+        .container {
+            padding: 20px;
+            margin-top: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .list-group-item {
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            font-size: 14px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-outline-secondary {
+            border: 1px solid #6c757d;
+            color: #6c757d;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .mt-3 {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<div class="container py-5">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3 th:text="'Consulta Contenedor: ' + ${contenedor.id}"></h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><b>Capacidad (litros): </b><i th:text="${contenedor.capacidad}"></i></li>
+                <li class="list-group-item"><b>Ubicación: </b><i th:text="${contenedor.ubicacion}"></i></li>
+                <li class="list-group-item"><b>Fecha de Instalación: </b><i th:text="${#dates.format(contenedor.fechaInst, 'dd/MM/yyyy')}"></i></li>
+                <li class="list-group-item"><b>Empresa: </b><i th:text="${contenedor.empresa.nombre}"></i></li>
+                <li class="list-group-item"><b>Estado: </b><i th:text="${contenedor.estado ? 'Activo' : 'Inactivo'}"></i></li>
+            </ul>
+            <div class="mt-3">
+                <a class="btn btn-outline-secondary btn-sm" href="#" onclick="history.back()">Regresar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="plantillas/base :: base-footer"></footer>
+</body>
+</html>

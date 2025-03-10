@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitar Resultados de Sensores</title>
+</head>
+<body>
+<button id="solicitarResultadosBtn">Solicitar Resultados de Sensores</button>
+
+<script>
+    document.getElementById("solicitarResultadosBtn").addEventListener("click", function() {
+      fetch('http://192.168.234.84:9090/resultado/obtenerResultados', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => response.json())
+          .then(data => {
+              console.log("Temperatura:", data.resultadoTemperatura);
+              console.log("Nivel de Llenado:", data.nivelLlenado);
+              // Puedes agregar aquí más resultados según los datos que devuelva tu API
+          })
+          .catch((error) => {
+              console.error('Error:', error);
+          });
+    });
+</script>
+</body>
+</html>

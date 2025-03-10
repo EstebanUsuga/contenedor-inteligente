@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+
+<title>Listado de Recolecciones | Reus-Oil</title>
+<link rel="stylesheet" th:href="@{/css/lists.css}">
+
+<div th:insert="plantillas/base :: base-header"></div>
+<body>
+<div class="container">
+    <h1>Listado de Recolecciones</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha de Recolección</th>
+            <th>Volumen Recogido (litros)</th>
+            <th>Empresa</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recoleccion : ${recolecciones}">
+            <td th:text="${recoleccion.id}"></td>
+            <td th:text="${#temporals.format(recoleccion.fechaRecoleccion, 'yyyy-MM-dd')}"></td>
+            <td th:text="${recoleccion.volumenRecogido}"></td>
+            <td th:text="${recoleccion.empresa.nombre}"></td>
+            <td th:text="${recoleccion.estado ? 'Activo' : 'Inactivo'}"></td>
+            <td>
+                <a class="btn btn-sm btn-info" th:href="@{/recoleccion/editar/{id}(id=${recoleccion.id})}">Editar</a>
+                <a class="btn btn-sm btn-danger" th:href="@{/recoleccion/eliminar/{id}(id=${recoleccion.id})}" onclick="return confirm('¿Eliminar registro?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="actions">
+        <a class="btn btn-sm btn-success mt-3" th:href="@{/recoleccion/guardar-recoleccion}">Agregar Nueva Recolección</a>
+    </div>
+</div>
+<div th:insert="plantillas/base :: base-footer"></div>
+
+</body>
+</html>

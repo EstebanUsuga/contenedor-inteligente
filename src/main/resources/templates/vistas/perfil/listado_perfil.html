@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+
+    <title>Listado de Perfiles | Reus-Oil</title>
+    <link rel="stylesheet" th:href="@{/css/lists.css}">
+
+<div th:insert="plantillas/base :: base-header"></div>
+<body>
+<div class="container">
+    <h1>Listado de Perfiles</h1>
+
+    <table>
+        <thead>
+        <tr>
+        <!--    <th>ID</th>  -->
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="perfil : ${perfiles}">
+            <!-- <td th:text="${perfil.id}"></td> -->
+             <td th:text="${perfil.descPerfil}"></td>
+             <td th:text="${perfil.estado ? 'Activo' : 'Inactivo'}"></td>
+             <td>
+                 <a class="btn btn-sm btn-info" th:href="@{/perfil/editar/{id}(id=${perfil.id})}">Editar</a>
+                 <a class="btn btn-sm btn-danger" th:href="@{/perfil/eliminar/{id}(id=${perfil.id})}" onclick="return confirm('¿Eliminar registro?')">Eliminar</a>
+             </td>
+         </tr>
+         </tbody>
+     </table>
+
+     <div class="actions">
+         <a class="btn btn-sm btn-success mt-3" th:href="@{/perfil/guardar-perfil}">Agregar Nuevo Perfil</a>
+     </div>
+ </div>
+ <div th:insert="plantillas/base :: base-footer"></div>
+
+ </body>
+ </html>

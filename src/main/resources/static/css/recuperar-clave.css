@@ -1,0 +1,60 @@
+ /* Estilos específicos para la página de recuperación de contraseña */
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
+        }
+
+        .form-container {
+            text-align: center;
+        }
+
+        .form-header {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .form-label {
+            color: #555;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: #c85508;
+            border-color: #c85508;
+        }
+
+        .btn-primary:hover {
+            background-color: #b84e08;
+            border-color: #b84e08;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-success {
+            background-color: #198754;
+            border-color: #198754;
+            margin-top: 15px;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+        }
+
+        .alert {
+            font-size: 0.9rem;
+        }

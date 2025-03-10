@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+<title>Formulario de Usuario</title>
+<link rel="stylesheet" th:href="@{/css/forms.css}">
+<body>
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Gestión Usuario</h1>
+
+    <form th:action="@{/usuario/guardar}" th:object="${usuarioGuardar}" method="post">
+        <!-- Campo de nombre de usuario -->
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="form-group">
+            <label for="usuario">Nombre de Usuario:</label>
+            <input type="text" class="form-control" id="usuario" th:field="*{usuario}" required>
+            <small class="form-text error-message" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></small>
+        </div>
+
+        <!-- Selección de perfil -->
+        <div class="form-group">
+            <label for="perfil">Perfil:</label>
+            <select class="form-control" id="perfil" th:field="*{perfil}" required>
+                <option value="" disabled selected>Seleccione un perfil</option>
+                <option th:each="perfil : ${perfiles}" th:value="${perfil.id}" th:text="${perfil.descPerfil}"></option>
+            </select>
+        </div>
+
+        <!-- Campo de contraseña -->
+        <div class="form-group">
+            <label for="clave">Contraseña:</label>
+            <input type="password" class="form-control" id="clave" th:field="*{clave}" required>
+            <small class="form-text error-message" th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}"></small>
+        </div>
+
+        <!-- Estado del usuario -->
+        <div class="mb-3 form-check">
+            <input id="estado" type="checkbox" th:field="*{estado}" class="form-check-input">
+            <label for="estado" class="form-check-label">Activo</label>
+        </div>
+
+        <!-- Botones de acción -->
+        <button type="submit" class="btn btn-sm btn-success">Guardar</button>
+        <a th:href="@{/usuario/listado-usuarios}" class="btn btn-sm btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div th:insert="plantillas/base :: base-footer"></div>
+
+</body>
+</html>

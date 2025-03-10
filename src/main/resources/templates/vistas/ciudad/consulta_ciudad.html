@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+<style>
+    .list-group-item {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+</style>
+<body>
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<div class="container py-4">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3 class="text-secondary" th:text="${titulo}"></h3>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title"></h4>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <b>ID de la ciudad: </b> <i th:text="${ciudad.id}"></i>
+                </li>
+                <li class="list-group-item">
+                    <b>Nombre de la ciudad: </b> <i th:text="${ciudad.nombre}"></i>
+                </li>
+                <li class="list-group-item">
+                    <b>Estado: </b> <i th:text="${(ciudad.estado ? 'Activo' : 'Inactivo')}"></i>
+                </li>
+                <li class="list-group-item">
+                    <b>Empresas en la ciudad: </b>
+                    <ul>
+                        <li th:each="empresa : ${ciudad.empresas}" th:text="${empresa.nombre}"></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="text-r+ight mt-3">
+                <a th:href="@{/gestion/ciudadeslistar}" class="btn btn-sm btn-light">&laquo; regresar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{plantillas/base :: base-footer}"></footer>
+</body>
+</html>

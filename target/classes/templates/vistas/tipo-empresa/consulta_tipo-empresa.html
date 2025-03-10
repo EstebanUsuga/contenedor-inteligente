@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:replace="~{plantillas/base :: base-head}"></head>
+    <title>Consulta Tipo de Empresa</title>
+</head>
+<body>
+
+<header th:replace="~{plantillas/base :: base-header}"></header>
+
+<div class="container py-5">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3 th:text="'Consulta Tipo de Empresa: ' + ${tipoEmpresa.nombre}"></h3>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><b>Nombre: </b><i th:text="${tipoEmpresa.nombre}"></i></li>
+                <li class="list-group-item"><b>Estado: </b><i th:text="${tipoEmpresa.estado ? 'Activa' : 'Inactiva'}"></i></li>
+            </ul>
+            <div class="mt-3">
+                <a class="btn btn-outline-secondary btn-sm" href="#" onclick="history.back()">Regresar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="plantillas/base :: base-footer"></div>
+</body>
+</html>

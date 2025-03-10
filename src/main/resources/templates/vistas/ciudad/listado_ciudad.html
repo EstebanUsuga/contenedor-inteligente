@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{plantillas/base :: base-head}"></head>
+
+<title>Listado de Ciudades</title>
+<link rel="stylesheet" th:href="@{/css/lists.css}">
+<body>
+
+<div th:insert="plantillas/base :: base-header"></div>
+
+<div class="container">
+    <div class="card bg-light">
+        <div class="card-header">
+            <h3>Listado de Ciudades</h3>
+        </div>
+        <div class="container mt-2">
+            <a class="btn btn-sm btn-success" th:href="@{/ciudad/nueva-ciudad}">Agregar Nueva Ciudad</a>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-striped table-sm table-hover table-bordered text-center"
+                   th:if="${not #lists.isEmpty(ciudades)}">
+                <thead>
+                <tr>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ciudad : ${ciudades}">
+                    <td th:text="${ciudad.nombre}"></td>
+                    <td>
+                        <span th:text="${ciudad.estado} ? 'Activo' : 'Inactivo'"
+                              th:class="${ciudad.estado} ? 'text-success font-weight-bold' : 'text-danger font-weight-bold'"></span>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-info" th:href="@{/ciudad/editar/{id}(id=${ciudad.id})}">Editar</a>
+                        <a class="btn btn-sm btn-danger" th:href="@{/ciudad/eliminar/{id}(id=${ciudad.id})}"
+                           onclick="return confirm('¿Eliminar registro?')">Eliminar</a>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <div class="alert alert-warning text-center" th:if="${#lists.isEmpty(ciudades)}">
+                <strong>No hay registros de ciudades para mostrar.</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="plantillas/base :: base-footer"></div>
+
+</body>
+</html>

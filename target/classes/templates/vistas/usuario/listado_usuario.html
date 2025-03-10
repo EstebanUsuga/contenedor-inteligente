@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{plantillas/base :: base-head}"></head>
+
+<title>Listado de Usuarios | Reus-Oil</title>
+<link rel="stylesheet" th:href="@{/css/lists.css}">
+
+<div th:insert="plantillas/base :: base-header"></div>
+<body>
+<div class="container">
+    <h1>Listado de Usuarios</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Perfil</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usuario : ${usuarios}">
+            <td th:text="${usuario.id}"></td>
+            <td th:text="${usuario.usuario}"></td>
+            <td th:text="${usuario.perfil.descPerfil}"></td>
+            <td th:text="${usuario.estado ? 'Activo' : 'Inactivo'}"></td>
+            <td>
+                <a class="btn btn-sm btn-info" th:href="@{/usuario/editar/{id}(id=${usuario.id})}">Editar</a>
+                <a class="btn btn-sm btn-danger" th:href="@{/usuario/eliminar/{id}(id=${usuario.id})}" onclick="return confirm('¿Eliminar registro?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="actions">
+        <a class="btn btn-sm btn-success mt-3" th:href="@{/usuario/formulario-usuario}">Agregar Nuevo Usuario</a>
+    </div>
+</div>
+<div th:insert="plantillas/base :: base-footer"></div>
+
+</body>
+</html>
