@@ -6,7 +6,7 @@ Base de datos: MySQL 8.0 (modelo entidad-relación con claves foráneas y relaci
 Frontend: Thymeleaf, Bootstrap 5.
 Hardware: Arduino, NodeMCU (ESP8266), Sensores HC-SR04 (ultrasónico) y DS18B20 (temperatura).
 Pruebas: JUnit 5, Mockito, Selenium para pruebas unitarias y de integración.
-DevOps: Maven, GitHub Actions (CI/CD).
+
 
 🚀 Funcionalidades destacadas:
 Monitoreo en tiempo real del nivel y temperatura del aceite en contenedores.
